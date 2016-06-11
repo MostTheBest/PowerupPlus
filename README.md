@@ -1,41 +1,38 @@
-```sh
-# Install dependencies.
-# Tested on Ubuntu 14.04. For other OSs, check out https://github.com/yagop/telegram-bot/wiki/Installation
-sudo apt-get install libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-dev libevent-dev make unzip git redis-server g++ libjansson-dev libpython-dev expat libexpat1-dev
+# PowerUP
 
-# Let's install the bot.
-cd $HOME
-git clone https://github.com/SIGNALTEAM/SignalTG.git
-cd SignalTG
-chmod +x launchfix2.sh
-chmod +x launch.sh
-chmod +x autolaunch.sh
-chmod +x steady.sh
-./launch.sh install
-cd .luarocks
-cd bin
-./luarocks-5.2 install luafilesystem
-./luarocks-5.2 install lub
-./luarocks-5.2 install luaexpat
-cd $HOME
-cd SignalTG
-./launch.sh install
-./launch.sh # Enter a phone number & confirmation code.
-```
+# Writer & Edtitors
+* **@Navid_MrVersatile**
+* **And Writed Readme.md By @Navid_MrVersatile**
+# Abilities
 
-**دقـــــــــــيق مثل همین عمل کنید**
+* **A Bot Based On Lua And With 4 Sudo**
+* **With Hard Settings**
+* **With Switch To Etehads**
+* **With Strong And High Server**
+* **This Bot Is Not Free But You Can Buy With A Little Money**
+* **Anti Links**
+* **Anti Tag**
+* **Anti Spam**
+* **This Bot Always Is Online**
+* **For Etehads And Personal Groups And Low Member Groups**
+* **And more!**
 
-```
-# Auto Launch Bot With :
+# Sudoers
 
-killall screen
-killall tmux
-killall telegram-cli
-tmux new-session -s script "bash steady.sh -t"
-```
+#### @DrCyber_MrVersatile [Supporter] And @Navid_MrVersatile [Editor] 
+### @Im_best_Sudo [Sudo] And @ThisIsPouria [Sudo]
 
-# Auto Launch Confiure :
+# Buy Groups
 
-**go to steady.sh and config it !**
+* **Buy Groups With Charge And Card To Card**
+* **Buy Groups With A Little Money**
 
-***Then Go To line 9 - 10 and change bot folder name and reload time!***
+# Speed
+
+* **With Strong And High Server And It Has High Speed**
+
+# Update
+
+* **Update Robot Monthly Or Yearsly**
+
+# End
