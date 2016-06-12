@@ -225,7 +225,7 @@ function show_group_settingsmod(msg, target)
 		end
 	end
   local settings = data[tostring(target)]['settings']
-  local text = "⚙Group settings:⚙\n⚡️Lock group name : "..settings.lock_name.."\n⚡️Lock group photo : "..settings.lock_photo.."\n⚡️Lock group member : "..settings.lock_member.."\n⚡️Lock group leave : "..leave_ban.."\n⚡️flood sensitivity : "..NUM_MSG_MAX.."\n⚡️Bot protection : "..bots_protection.."\n⚡️Lock links : "..settings.lock_link.."\n⚡️Lock RTL: "..settings.lock_rtl.."\n⚡️Lock sticker: "..settings.lock_sticker.."\n⚡️Public: "..settings.public.."\n💥Bot Version : 1.0 💥\n💥Signal Bot💥\n@SignalTM"
+  local text = "⚙Group settings:⚙\n⚡️Lock group name : "..settings.lock_name.."\n⚡️Lock group photo : "..settings.lock_photo.."\n⚡️Lock group member : "..settings.lock_member.."\n⚡️Lock group leave : "..leave_ban.."\n⚡️flood sensitivity : "..NUM_MSG_MAX.."\n⚡️Bot protection : "..bots_protection.."\n⚡️Lock links : "..settings.lock_link.."\n⚡️Lock RTL: "..settings.lock_rtl.."\n⚡️Lock sticker: "..settings.lock_sticker.."\n⚡️Public: "..settings.public.."\n💥Bot Version : 2 💥\n💥PowerUP Bot💥\n@PowerupTG_CH"
   return text
 end
 
@@ -631,7 +631,7 @@ local function modadd(msg)
   end
   local data = load_data(_config.moderation.data)
   if is_group(msg) then
-    return 'Group is already added.'
+    return '🗣Group is already added.'
   end
     receiver = get_receiver(msg)
     chat_info(receiver, check_member_modadd,{receiver=receiver, data=data, msg = msg})
@@ -1136,7 +1136,7 @@ if msg.to.type == 'chat' then
     if matches[1] == 'setphoto' and is_momod(msg) then
       data[tostring(msg.to.id)]['settings']['set_photo'] = 'waiting'
       save_data(_config.moderation.data, data)
-      return 'Please send me new group photo now'
+      return '🏵Please send me new group photo now \n @PoWerUpTG '
     end
     if matches[1] == 'promote' and not matches[2] then
 	   if not is_momod(msg) then
@@ -1533,14 +1533,14 @@ end
 if msg.to.type == 'chat' then
     if matches[1] == 'newlink' and not is_realm(msg) then
       if not is_momod(msg) then
-        return "For moderators only!"
+        return "🌟For moderators only👌"
       end
       local function callback (extra , success, result)
         local receiver = 'chat#'..msg.to.id
         if success == 0 then
-           return send_large_msg(receiver, '*Error: Invite link failed* \nReason: Not creator.')
+           return send_large_msg(receiver, '🗣*Error: Invite link failed* \nReason: Not creator👁.')
         end
-        send_large_msg(receiver, "Created a new link")
+        send_large_msg(receiver, "🗣Created a new link✍🏻")
         data[tostring(msg.to.id)]['settings']['set_link'] = result
         save_data(_config.moderation.data, data)
       end
@@ -1550,11 +1550,11 @@ if msg.to.type == 'chat' then
     end
     if matches[1] == 'link' then
       if not is_momod(msg) then
-        return "For moderators only!"
+        return "👍🏻For moderators only!"
       end
       local group_link = data[tostring(msg.to.id)]['settings']['set_link']
       if not group_link then
-        return "Create a link using /newlink first !"
+        return "🌟Create a link using /newlink first👌"
       end
        savelog(msg.to.id, name_log.." ["..msg.from.id.."] requested group link ["..group_link.."]")
       return "😎Group link:\n〰〰〰〰〰〰〰〰〰〰〰\n"..group_link
