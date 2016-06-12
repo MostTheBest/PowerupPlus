@@ -1557,7 +1557,7 @@ if msg.to.type == 'chat' then
         return "Create a link using /newlink first !"
       end
        savelog(msg.to.id, name_log.." ["..msg.from.id.."] requested group link ["..group_link.."]")
-      return "Group link:\n"..group_link
+      return "😎Group link:\n〰〰〰〰〰〰〰〰〰〰〰\n"..group_link
     end
     if matches[1] == 'setowner' and matches[2] then
       if not is_owner(msg) then
