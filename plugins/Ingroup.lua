@@ -225,7 +225,7 @@ function show_group_settingsmod(msg, target)
 		end
 	end
   local settings = data[tostring(target)]['settings']
-  local text = "🤖About RoBot🤖\n(1)👉Versian Bot : 2\n(2)👉Id RoBot : @PoWerUpTG\n(3)👉Id Channel : @PoWerUpTG_CH\n➖➖➖➖➖➖➖➖➖➖➖\n⚙ Settings For Normal Group ⚙\n➖➖➖➖➖➖➖➖➖➖➖\n🔧All Lock For Group🔧\n🏵Lock Group name : "..settings.lock_name.."\n🏵Lock Group photo : "..settings.lock_photo.."\n🏵Lock Group member : "..settings.lock_member.."\n🏵Lock Group Leave : "..leave_ban.."\n🏵Lock Sticker : "..settings.lock_sticker.."\n🏵Lock RTL : "..settings.lock_rtl.."\n🏵Lock Links : "..settings.lock_link.."\n➖➖➖➖➖➖➖➖➖➖➖\n🔧Settings For Security🔧\nⓂ️🛡Flood Sensitivity : "..NUM_MSG_MAX.."\nⓂ️🛡Bot Protection : "..bots_protection.."\n🌟PowerUP🌟"
+  local text = "Ⓜ️Settings For Group : " ..msg.to.title.." \n 🤖About RoBot🤖\n(1)👉Versian Bot : 2\n(2)👉Id RoBot : @PoWerUpTG\n(3)👉Id Channel : @PoWerUpTG_CH\n➖➖➖➖➖➖➖➖➖➖➖\n⚙ Settings For Normal Group ⚙\n➖➖➖➖➖➖➖➖➖➖➖\n🔧All Lock For Group🔧\n🏵Lock Group name : "..settings.lock_name.."\n🏵Lock Group photo : "..settings.lock_photo.."\n🏵Lock Group member : "..settings.lock_member.."\n🏵Lock Group Leave : "..leave_ban.."\n🏵Lock Sticker : "..settings.lock_sticker.."\n🏵Lock RTL : "..settings.lock_rtl.."\n🏵Lock Links : "..settings.lock_link.."\n➖➖➖➖➖➖➖➖➖➖➖\n🔧Settings For Security🔧\nⓂ️🛡Flood Sensitivity : "..NUM_MSG_MAX.."\nⓂ️🛡Bot Protection : "..bots_protection.."\n🌟PowerUP🌟"
   return text
 end
 
