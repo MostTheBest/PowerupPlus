@@ -1737,7 +1737,7 @@ local function run(msg, matches)
 			else
 				savelog(msg.to.id, name_log.." ["..msg.from.id.."] requested SuperGroup ID")
 				return "👤Specifications Member👤\n🔅Your Name : " ..string.gsub(msg.from.print_name, "_", " ").. "\n🔅Your ID : "..msg.from.id.."\n🔅Your UserName : @"..(msg.from.username or '----').."\n🔅The number of messages : "..user.info.msg.."\n➖➖➖➖➖➖➖➖➖➖➖\n👥Specifications Group👥\n🔆 SuperGroup Name : " ..string.gsub(msg.to.print_name, "_", " ").. "\n🔆SuperGroup ID : "..msg.to.id
-			end
+		        end
 		end
 
 		if matches[1] == 'kickme' then
