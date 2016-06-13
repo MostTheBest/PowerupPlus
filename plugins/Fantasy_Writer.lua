@@ -187,7 +187,7 @@ local function run(msg, matches)
 		a=a+1
 		result_text = result_text..a.."- "..result[a].."\n\n"
 	end
-	return result_text.."______________________________\n@SignalTM"
+	return result_text.."______________________________\n@PowerupTG_CH"
 end
 
 return {
