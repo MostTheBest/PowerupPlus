@@ -1736,8 +1736,8 @@ local function run(msg, matches)
 				resolve_username(username,  callbackres, cbres_extra)
 			else
 				savelog(msg.to.id, name_log.." ["..msg.from.id.."] requested SuperGroup ID")
-				return "👤Specifications Member👤\n🔅Your Name : " ..string.gsub(msg.from.print_name, "_", " ").. "\n🔅Your ID : "..msg.from.id.."\n🔅Your UserName : @"..msg.from.username.."\n🔅The number of messages : "..user.info.msg.."\n➖➖➖➖➖➖➖➖➖➖➖\n👥Specifications Group👥\n🔆 SuperGroup Name : " ..string.gsub(msg.to.print_name, "_", " ").. "\n🔆SuperGroup ID : "..msg.to.id
-            end
+				return "👤Specifications Member👤\n🔅Your Name : " ..string.gsub(msg.from.print_name, "_", " ").. "\n🔅Your ID : "..msg.from.id.."\n🔅Your UserName : @"..(msg.from.username or '----').."\n➖➖➖➖➖➖➖➖➖➖➖\n👥Specifications Group👥\n🔆 SuperGroup Name : " ..string.gsub(msg.to.print_name, "_", " ").. "\n🔆SuperGroup ID : "..msg.to.id
+      end
 		end
 
 		if matches[1] == 'kickme' then
