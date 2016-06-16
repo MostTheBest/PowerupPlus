@@ -6,7 +6,7 @@ VOLUNTARY=1
 VOLUNTARYCHECK=0
 I=1
 BOT=PowerupPlus
-RELOADTIME=15
+RELOADTIME=10
 
 
 function tmux_mode {
