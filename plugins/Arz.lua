@@ -2,7 +2,7 @@ local function get_arz()
   local url = 'http://exchange.nalbandan.com/api.php?action=json'
   local jstr, res = http.request(url)
   local arz = json:decode(jstr)
-  return 'نرخ ارز سکه...\n?? سکه طرح قديم:'..arz.coin_old.value..' تومان\\n سکه طرح جديد:'..arz.coin_new.value..' تومان\'..\n? ? ? ? ? ? ? ? ? ? ?\nنرخ ارز پول...\n دلـار رسمي:'..arz.dollar_rasmi.value..' تومان\\n دلار آمريکا:'..arz.dollar.value\تومان '..\n يورو:'..arz.euro.value\تومان '..\n پوند:'..arz.pond.value..' تومان\\n درهم:'..arz.derham.value..' تومان'\n? ? ? ? ? ? ? ? ? ? ?\nنرخ ارز طلا...\n نرخ ارز ، طلا و سکه در:'..arz.dollar.date..'\n\n?? هر گرم طلاي 18 عيار:'..arz.gold_per_geram.value..' تومان'
+  return 'نرخ ارز سکه...\n?? سکه طرح قديم:'..arz.coin_old.value..' تومان\\n سکه طرح جديد:'..arz.coin_new.value..' تومان\'..\n? ? ? ? ? ? ? ? ? ? ?\nنرخ ارز پول...\n دلـار رسمي:'..arz.dollar_rasmi.value..' تومان\\n دلار آمريکا:'..arz.dollar.value\تومان '..\n يورو:'..arz.euro.value\تومان '..\n پوند:'..arz.pond.value..' تومان\\n درهم:'..arz.derham.value..' تومان'
 end
 
 local function run(msg, matches)
