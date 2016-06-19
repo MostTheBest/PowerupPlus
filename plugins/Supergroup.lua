@@ -179,11 +179,11 @@ local function lock_group_links(msg, data, target)
   end
   local group_link_lock = data[tostring(target)]['settings']['lock_link']
   if group_link_lock == '🔒' then
-    return 'Link posting is already locked'
+    return '🗣Link posting is already locked🌟'
   else
     data[tostring(target)]['settings']['lock_link'] = '🔒'
     save_data(_config.moderation.data, data)
-    return 'Link posting has been locked'
+    return '🗣Link posting has been locked🌟'
   end
 end
 
@@ -193,11 +193,11 @@ local function unlock_group_links(msg, data, target)
   end
   local group_link_lock = data[tostring(target)]['settings']['lock_link']
   if group_link_lock == '🔓' then
-    return 'Link posting is not locked'
+    return '🗣Link posting is not locked🏵'
   else
     data[tostring(target)]['settings']['lock_link'] = '🔓'
     save_data(_config.moderation.data, data)
-    return 'Link posting has been unlocked'
+    return '🗣Link posting has been unlocked🏵'
   end
 end
 
