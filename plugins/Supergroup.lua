@@ -375,11 +375,11 @@ local function lock_group_media(msg, data, target)
   end
   local group_media_lock = data[tostring(target)]['settings']['media']
   if group_media_lock == '🔒' then
-    return 'media is already locked'
+    return '🗣Media is already locked🌟'
   else
     data[tostring(target)]['settings']['media'] = '🔒'
     save_data(_config.moderation.data, data)
-    return 'media has been locked'
+    return '🗣Media has been locked🌟'
   end
 end
 
@@ -389,11 +389,11 @@ local function unlock_group_media(msg, data, target)
   end
   local group_media_lock = data[tostring(target)]['settings']['media']
   if group_media_lock == '🔓' then
-    return 'media is not locked'
+    return '🗣Media is not locked🏵'
   else
     data[tostring(target)]['settings']['media'] = '🔓'
     save_data(_config.moderation.data, data)
-    return 'media has been unlocked'
+    return '🗣Media has been unlocked🏵'
   end
 end
 
@@ -403,11 +403,11 @@ local function lock_group_fosh(msg, data, target)
   end
   local group_fosh_lock = data[tostring(target)]['settings']['fosh']
   if group_fosh_lock == '🔒' then
-    return 'fosh is already locked'
+    return '🗣Fosh is already locked🌟'
   else
     data[tostring(target)]['settings']['fosh'] = '🔒'
     save_data(_config.moderation.data, data)
-    return 'fosh has been locked'
+    return '🗣Fosh has been locked🌟'
   end
 end
 
@@ -417,11 +417,11 @@ local function unlock_group_fosh(msg, data, target)
   end
   local group_fosh_lock = data[tostring(target)]['settings']['fosh']
   if group_fosh_lock == '🔓' then
-    return 'fosh is not locked'
+    return '🗣Fosh is not locked🏵'
   else
     data[tostring(target)]['settings']['fosh'] = '🔓'
     save_data(_config.moderation.data, data)
-    return 'fosh has been unlocked'
+    return '🗣Fosh has been unlocked🏵'
   end
 end
 
@@ -459,11 +459,11 @@ local function lock_group_fwd(msg, data, target)
   end
   local group_fwd_lock = data[tostring(target)]['settings']['fwd']
   if group_fwd_lock == '🔒' then
-    return 'fwd is already locked'
+    return '🗣Fwd is already locked🌟'
   else
     data[tostring(target)]['settings']['fwd'] = '🔒'
     save_data(_config.moderation.data, data)
-    return 'fwd has been locked'
+    return '🗣Fwd has been locked🌟'
   end
 end
 
@@ -473,11 +473,11 @@ local function unlock_group_fwd(msg, data, target)
   end
   local group_fwd_lock = data[tostring(target)]['settings']['fwd']
   if group_fwd_lock == '🔓' then
-    return 'fwd is not locked'
+    return '🗣Fwd is not locked🏵'
   else
     data[tostring(target)]['settings']['fwd'] = '🔓'
     save_data(_config.moderation.data, data)
-    return 'fwd has been unlocked'
+    return '🗣Fwd has been unlocked🏵'
   end
 end
 
@@ -543,11 +543,11 @@ local function lock_group_tag(msg, data, target)
   end
   local group_tag_lock = data[tostring(target)]['settings']['tag']
   if group_tag_lock == '🔒' then
-    return 'tag is already locked'
+    return '🗣Tag is already locked🌟'
   else
     data[tostring(target)]['settings']['tag'] = '🔒'
     save_data(_config.moderation.data, data)
-    return 'tag has been locked'
+    return '🗣Tag has been locked🌟'
   end
 end
 
@@ -557,11 +557,11 @@ local function unlock_group_tag(msg, data, target)
   end
   local group_tag_lock = data[tostring(target)]['settings']['tag']
   if group_tag_lock == '🔓' then
-    return 'tag is not locked'
+    return '🗣Tag is not locked🏵'
   else
     data[tostring(target)]['settings']['tag'] = '🔓'
     save_data(_config.moderation.data, data)
-    return 'tag has been unlocked'
+    return '🗣Tag has been unlocked🏵'
   end
 end
 
