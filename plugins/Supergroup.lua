@@ -347,11 +347,11 @@ local function lock_group_username(msg, data, target)
   end
   local group_username_lock = data[tostring(target)]['settings']['username']
   if group_username_lock == '🔒' then
-    return 'username is already locked'
+    return '🗣Username Is Already Locked🌟'
   else
     data[tostring(target)]['settings']['username'] = '🔒'
     save_data(_config.moderation.data, data)
-    return 'username has been locked'
+    return '🗣Username Has Been Locked🌟'
   end
 end
 
@@ -361,11 +361,11 @@ local function unlock_group_username(msg, data, target)
   end
   local group_username_lock = data[tostring(target)]['settings']['username']
   if group_username_lock == '🔓' then
-    return 'username is not locked'
+    return '🗣Username Is Not Locked🏵'
   else
     data[tostring(target)]['settings']['username'] = '🔓'
     save_data(_config.moderation.data, data)
-    return 'username has been unlocked'
+    return '🗣Username Has Been Unlocked🏵'
   end
 end
 
