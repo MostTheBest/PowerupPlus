@@ -244,7 +244,7 @@ if matches[1]:lower() == 'kick' then
       end
 	elseif string.match(matches[2], '^%d+$') then
 		if tonumber(matches[2]) == tonumber(our_id) then
-			return
+			return "fucked"
 		end
 		if not is_admin1(msg) and is_momod2(matches[2], msg.to.id) then
 			return "you can't kick mods/owner/admins"
