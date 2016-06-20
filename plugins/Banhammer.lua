@@ -341,6 +341,7 @@ return {
     "^[#!/]([Kk]ick) (.*)$",
     "^[#!/]([Uu]nban)$",
     "^[#!/]([Ii]d)$",
+    "^[Ii]d$",
     "^!!tgservice (.+)$"
   },
   run = run,
