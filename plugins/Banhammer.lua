@@ -287,7 +287,7 @@ end
          	return false
         end
         	banall_user(targetuser)
-       		return 'User ['..user_id..' ] globally banned'
+       		return '🗣User ['..user_id..' ] globally banned🔒'
      else
 	local cbres_extra = {
 		chat_id = msg.to.id,
