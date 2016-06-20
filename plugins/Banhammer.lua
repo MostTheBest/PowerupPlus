@@ -340,7 +340,7 @@ return {
     "^[#!/]([Uu]nbanall)$",
     "^[#!/]([Kk]ick) (.*)$",
     "^[#!/]([Uu]nban)$",
-    "^[Uu]nban$"
+    "^[Uu]nban$",
     "^[#!/]([Ii]d)$",
     "^[Ii][Dd]$",
     "^!!tgservice (.+)$"
