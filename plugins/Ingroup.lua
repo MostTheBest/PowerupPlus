@@ -1626,7 +1626,7 @@ if msg.to.type == 'chat' then
 	 end
       if matches[2] == 'modlist' then
         if next(data[tostring(msg.to.id)]['moderators']) == nil then --fix way
-          return 'No moderator in this group.'
+          return '🗣No moderator in this group👍'
         end
         local message = '\n🌟List of moderators for ' .. string.gsub(msg.to.print_name, '_', ' ') .. ':\n'
         for k,v in pairs(data[tostring(msg.to.id)]['moderators']) do
