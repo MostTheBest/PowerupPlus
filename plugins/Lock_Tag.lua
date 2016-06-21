@@ -5,23 +5,23 @@ local function run(msg, matches)
     local data = load_data(_config.moderation.data)
     if data[tostring(msg.to.id)] then
         if data[tostring(msg.to.id)]['settings'] then
-            if data[tostring(msg.to.id)]['settings']['tag'] then
-                lock_tag = data[tostring(msg.to.id)]['settings']['tag']
+            if data[tostring(msg.to.id)]['settings']['username'] then
+                username = data[tostring(msg.to.id)]['settings']['username']
             end
         end
     end
     local chat = get_receiver(msg)
     local user = "user#id"..msg.from.id
-    if lock_tag == "🔒" then
+    if username == "🔒" then
        delete_msg(msg.id, ok_cb, true)
     end
 end
  
 return {
   patterns = {
-  "#"
+  "@",
+  "@(.*)",
+  "(.*)@",
   },
   run = run
 }
-
-
