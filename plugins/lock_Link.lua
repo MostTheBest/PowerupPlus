@@ -19,10 +19,12 @@ end
 
 return {
 	patterns = {
-		"telegram.me/(.*)",
-		"(.*)telegram.me/",
-		"telegram.me/"
+		"[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]/(.*)",
+		"(.*)[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]/",
+		"[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]/",
+		"[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].me/(.*)",
+		"(.*)[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].me/",
+		"[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].me/"
 	},
 	run = run
 }
-
