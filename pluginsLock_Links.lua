@@ -19,12 +19,12 @@ end
 
 return {
 	patterns = {
-		"[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]/(.*)",
-		"(.*)[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]/",
-		"[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]/",
-		"[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].me/(.*)",
-		"(.*)[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].me/",
-		"[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].me/"
+	"[Hh][Tt][Tt][Pp][Ss]://[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]/[Jj][Oo][Ii][Nn][Cc][Hh][Aa][Tt]/",
+        "[Hh][Tt][Tt][Pp][Ss]://[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]/[Jj][Oo][Ii][Nn][Cc][Hh][Aa][Tt]",
+        "[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]/[Jj][Oo][Ii][Nn][Cc][Hh][Aa][Tt]/",
+        "[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]/[Jj][Oo][Ii][Nn][Cc][Hh][Aa][Tt]/",
+        "[Hh][Tt][Tt][Pp]://",
+        "[Ww][Ww][Ww]:"
 	},
 	run = run
 }
