@@ -22,7 +22,9 @@ return {
 	"telegram.me/joinchat/",
         "telegram.me",
         "[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].me",
-        "[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]",
+        "Telegram.me",
+        "TELEGRAM.ME",
+        "TElegram.me",
     "[Ht]ttps://"
 	},
 	run = run
