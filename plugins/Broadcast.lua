@@ -3,6 +3,7 @@ local function run(msg, matches)
 		local response = matches[3]
 		--send_large_msg("chat#id"..matches[2], response)
 		send_large_msg("channel#id"..matches[2], response)
+		return "SENDPM"
 	end
 	if matches[1] == 'broadcast' then
 		if is_sudo(msg) then -- Only sudo !
