@@ -16,12 +16,13 @@ local function run(msg, matches)
        delete_msg(msg.id, ok_cb, true)
     end
 end
- 
+
 return {
-  patterns = {
-"telegram.me/joinchat/",
-        "telegram.me",
-    "[Ht]ttps://"
- },
-  run = run
+	patterns = {
+		"telegram.me/(.*)",
+		"(.*)telegram.me/",
+		"telegram.me/"
+	},
+	run = run
 }
+
