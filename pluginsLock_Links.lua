@@ -6,7 +6,7 @@ local function run(msg, matches)
     if data[tostring(msg.to.id)] then
         if data[tostring(msg.to.id)]['settings'] then
             if data[tostring(msg.to.id)]['settings']['lock_link'] then
-                lock_english = data[tostring(msg.to.id)]['settings']['lock_link']
+                lock_link = data[tostring(msg.to.id)]['settings']['lock_link']
             end
         end
     end
@@ -24,7 +24,19 @@ return {
         "[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]/[Jj][Oo][Ii][Nn][Cc][Hh][Aa][Tt]/",
         "[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]/[Jj][Oo][Ii][Nn][Cc][Hh][Aa][Tt]/",
         "[Hh][Tt][Tt][Pp]://",
-        "[Ww][Ww][Ww]:"
+        "[Ww][Ww][Ww]:",
+        "[Hh][Tt][Tt][Pp][Ss]://[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]/[Jj][Oo][Ii][Nn][Cc][Hh][Aa][Tt]/(.*)",
+        "[Hh][Tt][Tt][Pp][Ss]://[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]/[Jj][Oo][Ii][Nn][Cc][Hh][Aa][Tt](.*)",
+        "[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]/[Jj][Oo][Ii][Nn][Cc][Hh][Aa][Tt]/(.*)",
+        "[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]/[Jj][Oo][Ii][Nn][Cc][Hh][Aa][Tt]/(.*)",
+        "[Hh][Tt][Tt][Pp]://(.*)",
+        "(.*)[Ww][Ww][Ww]:",
+        "(.*)[Hh][Tt][Tt][Pp][Ss]://[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]/[Jj][Oo][Ii][Nn][Cc][Hh][Aa][Tt]/",
+        "(.*)[Hh][Tt][Tt][Pp][Ss]://[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]/[Jj][Oo][Ii][Nn][Cc][Hh][Aa][Tt]",
+        "(.*)[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]/[Jj][Oo][Ii][Nn][Cc][Hh][Aa][Tt]/",
+        "(.*)[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]/[Jj][Oo][Ii][Nn][Cc][Hh][Aa][Tt]/",
+        "(.*)[Hh][Tt][Tt][Pp]://",
+        "(.*)[Ww][Ww][Ww]:"
 	},
 	run = run
 }
