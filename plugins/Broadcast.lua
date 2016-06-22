@@ -16,6 +16,7 @@ local function run(msg, matches)
 				local channel = 'channel#id'..chat_id
 				send_large_msg(chat, response)
 				send_large_msg(channel, response)
+				return "🗣SENDPM FOR ALL GROUPS🌟"
 			end
 		end
 	end
