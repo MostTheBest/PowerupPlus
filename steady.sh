@@ -1,3 +1,32 @@
+#!/bin/bash
+# =====================================================================================================
+# Copyright (C) steady.sh v1.2 2016 iicc (@iicc1)
+# =====================================================================================================
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+# this program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+# You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# =======================================================================================================
+# It depends on Tmux https://github.com/tmux/tmux which is BSD-licensed
+# and Screen https://www.gnu.org/software/screen GNU-licensed.
+# =======================================================================================================
+# This script is intended to control the state of a telegram-cli telegram bot running in background.
+# The idea is to get the bot fully operative all the time without any supervision by the user.
+# It should be able to recover the telegram bot in any case telegram-cli crashes, freezes or whatever.
+# This script works by tracing ctxt swithes value in kernel procces at a $RELOADTIME 
+# So it can detect any kind of kernel interruption with the procces and reload the bot.
+# ____             _   ____        _  _____                    
+#| __ )  ___  __ _| |_| __ )  ___ | ||_   _|__  __ _ _ __ ___  
+#|  _ \ / _ \/ _` | __|  _ \ / _ \| __|| |/ _ \/ _` | '_ ` _ \ 
+#| |_) |  __/ (_| | |_| |_) | (_) | |_ | |  __/ (_| | | | | | |
+#|____/ \___|\__,_|\__|____/ \___/ \__||_|\___|\__,_|_| |_| |_|
+
+
+# Some script variables
 OK=0
 BAD=0
 NONVOLUNTARY=1
@@ -5,8 +34,8 @@ NONVOLUNTARYCHECK=0
 VOLUNTARY=1
 VOLUNTARYCHECK=0
 I=1
-BOT=PowerupPlus
-RELOADTIME=15
+BOT=PowerupPlus  # You can put here other bots. Also you can change it to run more than one bot in the same server.
+RELOADTIME=10  # Time between checking cpu calls of the cli process. Set the value high if your bot does not receive lots of messages.
 
 
 function tmux_mode {
@@ -56,11 +85,6 @@ fi
 echo -e "$f2 $BOT FOUND IN YOUR HOME DIRECTORY$rst"
 sleep 0.5
 
-   echo ""                _   _ _______  _______ ___  ____  
-echo -e "\033[38;5;208m  | | | | ____\ \/ /_   _/ _ \|  _ \          \033[0;00m"
-echo -e "\033[38;5;208m  | |_| |  _|  \  /  | || | | | |_) |         \033[0;00m"
-echo -e "\033[38;5;208m  |  _  | |___ /  \  | || |_| |  _ <          \033[0;00m"
-echo -e "\033[38;5;208m  |_| |_|_____/_/\_\ |_| \___/|_| \_\         \033[0;00m"
 
 sleep 1.5
 echo -e "$bld$f4 CHECKING PROCESSES...$rst"
@@ -98,62 +122,61 @@ sleep 3
 
 while true; do
   
- echo -e "$f2 TIMES CHECKED AND RUNNING:$f5 $OK $rst"
- echo -e "$f2 TIMES FAILED AND RECOVERED:$f5 $BAD $rst"
- echo ""
- 
- cat /proc/$CLIPID/task/$CLIPID/status > CHECK
- if [ $? != 0 ]; then
-  I=$(( $I + 1 ))
-  if [ $I -ge 3 ]; then
-   kill $CLIPID
-   tmux kill-session -t $BOT
-   rm ../.telegram-cli/state  > /dev/null 
-   NONVOLUNTARY=0
-   NONVOLUNTARYCHECK=0
-   VOLUNTARY=0
-   VOLUNTARYCHECK=0
-  fi
- else
-  I=1
- fi
- VOLUNTARYCHECK=`grep voluntary CHECK | head -1 | cut -f 2 -d":" | sed 's/^[[:space:]]*//'`
- NONVOLUNTARYCHECK=`grep nonvoluntary CHECK | cut -f 2 -d":" | sed 's/^[[:space:]]*//'`
- 
- if [ $NONVOLUNTARY != $NONVOLUNTARYCHECK ] || [ $VOLUNTARY != $VOLUNTARYCHECK ]; then
-  echo -e "$f5 BOT RUNNING!$rst"
-  OK=$(( $OK + 1 ))
+	echo -e "$f2 TIMES CHECKED AND RUNNING:$f5 $OK $rst"
+	echo -e "$f2 TIMES FAILED AND RECOVERED:$f5 $BAD $rst"
+	echo ""
+	
+	cat /proc/$CLIPID/task/$CLIPID/status > CHECK
+	if [ $? != 0 ]; then
+		I=$(( $I + 1 ))
+		if [ $I -ge 3 ]; then
+			kill $CLIPID
+			tmux kill-session -t $BOT
+			rm ../.telegram-cli/state  > /dev/null 
+			NONVOLUNTARY=0
+			NONVOLUNTARYCHECK=0
+			VOLUNTARY=0
+			VOLUNTARYCHECK=0
+		fi
+	else
+		I=1
+	fi
+	VOLUNTARYCHECK=`grep voluntary CHECK | head -1 | cut -f 2 -d":" | sed 's/^[[:space:]]*//'`
+	NONVOLUNTARYCHECK=`grep nonvoluntary CHECK | cut -f 2 -d":" | sed 's/^[[:space:]]*//'`
+	
+	if [ $NONVOLUNTARY != $NONVOLUNTARYCHECK ] || [ $VOLUNTARY != $VOLUNTARYCHECK ]; then
+		echo -e "$f5 BOT RUNNING!$rst"
+		OK=$(( $OK + 1 ))
 
- else
-  echo -e "$f5 BOT NOT RUNING, TRYING TO RELOAD IT...$rst"
-  BAD=$(( $BAD + 1 ))
-  sleep 1
-  
-  rm ../.telegram-cli/state  > /dev/null 
+	else
+		echo -e "$f5 BOT NOT RUNING, TRYING TO RELOAD IT...$rst"
+		BAD=$(( $BAD + 1 ))
+		sleep 1
+		
+		rm ../.telegram-cli/state  > /dev/null 
 
-  kill $CLIPID
-  tmux kill-session -t $BOT
- 
-  TMUX= tmux new-session -d -s $BOT "./launch.sh"
-  sleep 1
-  
-  CLIPID=`ps -e | grep telegram-cli | head -1 | sed 's/^[[:
-space:]]*//' | cut -f 1 -d" "`
-  
-  if [ -z "${CLIPID}" ]; then
-   echo -e "$f1 ERROR: TELEGRAM-CLI PROCESS NOT RUNNING$rst"
-   echo -e "$f1 FAILED TO RECOVER BOT$rst"
-   sleep 3
-   exit 1
-  fi
+		kill $CLIPID
+		tmux kill-session -t $BOT
+	
+		TMUX= tmux new-session -d -s $BOT "./launch.sh"
+		sleep 1
+		
+		CLIPID=`ps -e | grep telegram-cli | head -1 | sed 's/^[[:space:]]*//' | cut -f 1 -d" "`
+		
+		if [ -z "${CLIPID}" ]; then
+			echo -e "$f1 ERROR: TELEGRAM-CLI PROCESS NOT RUNNING$rst"
+			echo -e "$f1 FAILED TO RECOVER BOT$rst"
+			sleep 3
+			exit 1
+		fi
 
- fi
- 
- VOLUNTARY=`echo $VOLUNTARYCHECK`
- NONVOLUNTARY=`echo $NONVOLUNTARYCHECK`
- sleep $RELOADTIME
- rm CHECK
- 
+	fi
+	
+	VOLUNTARY=`echo $VOLUNTARYCHECK`
+	NONVOLUNTARY=`echo $NONVOLUNTARYCHECK`
+	sleep $RELOADTIME
+	rm CHECK
+	
 done
 
 }
@@ -207,14 +230,6 @@ fi
 echo -e "$f2 $BOT FOUND IN YOUR HOME DIRECTORY$rst"
 sleep 0.5
 
-
-   echo ""                _   _ _______  _______ ___  ____  
-echo -e "\033[38;5;208m  | | | | ____\ \/ /_   _/ _ \|  _ \          \033[0;00m"
-echo -e "\033[38;5;208m  | |_| |  _|  \  /  | || | | | |_) |         \033[0;00m"
-echo -e "\033[38;5;208m  |  _  | |___ /  \  | || |_| |  _ <          \033[0;00m"
-echo -e "\033[38;5;208m  |_| |_|_____/_/\_\ |_| \___/|_| \_\         \033[0;00m"
-
-
 # Starting preliminar setup
 sleep 1.5
 echo -e "$bld$f4 CHECKING PROCESSES...$rst"
@@ -231,7 +246,7 @@ if [ $SCREENNUM -ge 3 ]; then
   if [ $CLINUM -ge 2 ]; then
     echo -e "$f1 ERROR: MORE THAN 1 PROCESS OF TELEGRAM-CLI RUNNING.$rst"
     echo -e "$f1 THESE PROCESSES WILL BE KILLED. THEN RESTART THE SCRIPT$rst"
- echo -e "$f1 RUN: killall telegram-cli $rst"
+	echo -e "$f1 RUN: killall telegram-cli $rst"
   fi
   sleep 4
   exit 1
@@ -280,8 +295,7 @@ sleep 1
 
 # =====Setup ends===== #
 
-# Opening new screen i
-n a daemon
+# Opening new screen in a daemon
 echo -e "$bld$f4 ATTACHING SCREEN AS DAEMON...$rst"
 # Better to clear cli status before
 rm ../.telegram-cli/state  > /dev/null 
@@ -333,61 +347,61 @@ sleep 5
 
   while true; do
   
- echo -e "$f2 TIMES CHECKED AND RUNNING:$f5 $OK $rst"
- echo -e "$f2 TIMES FAILED AND RECOVERED:$f5 $BAD $rst"
- echo ""
- 
- cat /proc/$CLIPID/task/$CLIPID/status > CHECK
- VOLUNTARYCHECK=`grep voluntary CHECK | head -1 | cut -f 2 -d":" | sed 's/^[[:space:]]*//'`
- NONVOLUNTARYCHECK=`grep nonvoluntary CHECK | cut -f 2 -d":" | sed 's/^[[:space:]]*//'`
- #echo -e "NONVOLUNTARYCHECK CTXT SWITCHES: $NONVOLUNTARYCHECK"
- #echo -e "NONVOLUNTARY CTXT SWITCHES: $NONVOLUNTARY"
- 
- if [ $NONVOLUNTARY != $NONVOLUNTARYCHECK ] || [ $VOLUNTARY != $VOLUNTARYCHECK ]; then
-  echo -e "$f5 BOT RUNNING!$rst"
-  OK=$(( $OK + 1 ))
+	echo -e "$f2 TIMES CHECKED AND RUNNING:$f5 $OK $rst"
+	echo -e "$f2 TIMES FAILED AND RECOVERED:$f5 $BAD $rst"
+	echo ""
+	
+	cat /proc/$CLIPID/task/$CLIPID/status > CHECK
+	VOLUNTARYCHECK=`grep voluntary CHECK | head -1 | cut -f 2 -d":" | sed 's/^[[:space:]]*//'`
+	NONVOLUNTARYCHECK=`grep nonvoluntary CHECK | cut -f 2 -d":" | sed 's/^[[:space:]]*//'`
+	#echo -e "NONVOLUNTARYCHECK CTXT SWITCHES: $NONVOLUNTARYCHECK"
+	#echo -e "NONVOLUNTARY CTXT SWITCHES: $NONVOLUNTARY"
+	
+	if [ $NONVOLUNTARY != $NONVOLUNTARYCHECK ] || [ $VOLUNTARY != $VOLUNTARYCHECK ]; then
+		echo -e "$f5 BOT RUNNING!$rst"
+		OK=$(( $OK + 1 ))
 
- else
-  echo -e "$f5 BOT NOT RUNING, TRYING TO RELOAD IT...$rst"
-  BAD=$(( $BAD + 1 ))
-  sleep 1
-  
-  rm ../.telegram-cli/state  > /dev/null 
+	else
+		echo -e "$f5 BOT NOT RUNING, TRYING TO RELOAD IT...$rst"
+		BAD=$(( $BAD + 1 ))
+		sleep 1
+		
+		rm ../.telegram-cli/state  > /dev/null 
 
-  kill $CLIPID
-  kill $SCREEN
-  
-  screen -d -m bash launch.sh
-  sleep 1
-  
-  CLIPID=`ps -e | grep telegram-cli | sed 's/^[[:space:]]*//' | cut -f 1 -d" "`
-  
-  if [ -z "${CLIPID}" ]; then
-   echo -e "$f1 ERROR: TELEGRAM-CLI PROCESS NOT RUNNING$rst"
-   echo -e "$f1 FAILED TO RECOVER BOT$rst"
-   sleep 1
-  fi
-  
-  SCREENNUM=`ps -e | grep -c screen`
-  if [ $SCREENNUM != 3 ]; then
-   echo -e "$f1 ERROR: SCREEN RUNNING: $SCREENNUM \n SCREEN ESPECTED: 3$rst"
-   echo -e "$f1 FAILED TO RECOVER BOT$rst"
-   exit 1
-  fi
+		kill $CLIPID
+		kill $SCREEN
+		
+		screen -d -m bash launch.sh
+		sleep 1
+		
+		CLIPID=`ps -e | grep telegram-cli | sed 's/^[[:space:]]*//' | cut -f 1 -d" "`
+		
+		if [ -z "${CLIPID}" ]; then
+			echo -e "$f1 ERROR: TELEGRAM-CLI PROCESS NOT RUNNING$rst"
+			echo -e "$f1 FAILED TO RECOVER BOT$rst"
+			sleep 1
+		fi
+		
+		SCREENNUM=`ps -e | grep -c screen`
+		if [ $SCREENNUM != 3 ]; then
+			echo -e "$f1 ERROR: SCREEN RUNNING: $SCREENNUM \n SCREEN ESPECTED: 3$rst"
+			echo -e "$f1 FAILED TO RECOVER BOT$rst"
+			exit 1
+		fi
 
-  SCREEN=`ps -e | grep -v $SCREENPID1 | grep -v $SCREENPID2 | grep screen | sed 's/^[[:space:]]*//' | cut -f 1 -d" "`
-  echo -e "$f5 BOT HAS BEEN SUCCESFULLY RELOADED!$rst"
-  echo -e "$f2 TELEGRAM-CLI NEW PID: $CLIPID$rst"
-  echo -e "$f2 SCREEN NEW PID: $SCREEN$rst"
-  sleep 3
-  
- fi
- 
- VOLUNTARY=`echo $VOLUNTARYCHECK`
- NONVOLUNTARY=`echo $NONVOLUNTARYCHECK`
- sleep $RELOADTIME
- rm CHECK
- 
+		SCREEN=`ps -e | grep -v $SCREENPID1 | grep -v $SCREENPID2 | grep screen | sed 's/^[[:space:]]*//' | cut -f 1 -d" "`
+		echo -e "$f5 BOT HAS BEEN SUCCESFULLY RELOADED!$rst"
+		echo -e "$f2 TELEGRAM-CLI NEW PID: $CLIPID$rst"
+		echo -e "$f2 SCREEN NEW PID: $SCREEN$rst"
+		sleep 3
+		
+	fi
+	
+	VOLUNTARY=`echo $VOLUNTARYCHECK`
+	NONVOLUNTARY=`echo $NONVOLUNTARYCHECK`
+	sleep $RELOADTIME
+	rm CHECK
+	
   done
 
 }
@@ -422,104 +436,96 @@ exit 1
 
 if [ $# -eq 0 ]
 then
- echo -e "\e[1m"
- echo -e ""
- echo "Missing options!"
- echo "Run: bash steady.sh -h  for help!"
- echo ""
- echo -e "\e[0m"
+	echo -e "\e[1m"
+	echo -e ""
+	echo "Missing options!"
+	echo "Run: bash steady.sh -h  for help!"
+	echo ""
+	echo -e "\e[0m"
     sleep 1
- exit 1
+	exit 1
 fi
 
 while getopts ":tsTSih" opt; do
   case $opt in
     t)
- echo -e "\e[1m"
- echo -e ""
- echo "TMUX multiplexer option has been triggered." >&2
- echo "Starting script..."
- sleep 1.5
- echo -e "\e[0m"
- tmux_mode
- exit 1
+	echo -e "\e[1m"
+	echo -e ""
+	echo "TMUX multiplexer option has been triggered." >&2
+	echo "Starting script..."
+	sleep 1.5
+	echo -e "\e[0m"
+	tmux_mode
+	exit 1
       ;;
- s)
- echo -e "\e[1m"
- echo -e ""
- echo "SCREEN multiplexer option has been triggered." >&2
- echo "Starting script..."
- sleep 1.5
- echo -e "\e[0m"
- screen_mode
- exit 1
+	s)
+	echo -e "\e[1m"
+	echo -e ""
+	echo "SCREEN multiplexer option has been triggered." >&2
+	echo "Starting script..."
+	sleep 1.5
+	echo -e "\e[0m"
+	screen_mode
+	exit 1
       ;;
     T)
- echo -e "\e[1m"
- echo -e ""
- echo "TMUX multiplexer option has been triggered." >&2
- echo "Starting script
-..."
- sleep 1.5
- echo -e "\e[0m"
- tmux_detached
- exit 1
+	echo -e "\e[1m"
+	echo -e ""
+	echo "TMUX multiplexer option has been triggered." >&2
+	echo "Starting script..."
+	sleep 1.5
+	echo -e "\e[0m"
+	tmux_detached
+	exit 1
       ;;
- S)
- echo -e "\e[1m"
- echo -e ""
- echo "SCREEN multiplexer option has been triggered." >&2
- echo "Starting script..."
- sleep 1.5
- echo -e "\e[0m"
- screen_detached
- exit 1
+	S)
+	echo -e "\e[1m"
+	echo -e ""
+	echo "SCREEN multiplexer option has been triggered." >&2
+	echo "Starting script..."
+	sleep 1.5
+	echo -e "\e[0m"
+	screen_detached
+	exit 1
       ;;
- i)
- echo -e "\e[1m"
- echo -e ""
- echo "steady.sh bash script v1.2 iicc 2016 DBTeam" >&2
- echo ""
- echo -e "\e[0m"
-echo -e "\033[38;5;208m  | | | | ____\ \/ /_   _/ _ \|  _ \          \033[0;00m"
-echo -e "\033[38;5;208m  | |_| |  _|  \  /  | || | | | |_) |         \033[0;00m"
-echo -e "\033[38;5;208m  |  _  | |___ /  \  | || |_| |  _ <          \033[0;00m"
-echo -e "\033[38;5;208m  |_| |_|_____/_/\_\ |_| \___/|_| \_\         \033[0;00m"
-echo ""
-
- exit 1
+	i)
+	echo -e "\e[1m"
+	echo -e ""
+	echo "steady.sh bash script v1.2 iicc 2016 DBTeam" >&2
+	echo ""
+	exit 1
       ;;
- h)
- echo -e "\e[1m"
- echo -e ""
- echo "Usage:"
- echo -e ""
- echo "steady.sh -t"
- echo "steady.sh -s"
- echo "steady.sh -T"
- echo "steady.sh -S"
- echo "steady.sh -h"
- echo "steady.sh -i"
+	h)
+	echo -e "\e[1m"
+	echo -e ""
+	echo "Usage:"
+	echo -e ""
+	echo "steady.sh -t"
+	echo "steady.sh -s"
+	echo "steady.sh -T"
+	echo "steady.sh -S"
+	echo "steady.sh -h"
+	echo "steady.sh -i"
     echo ""
- echo "Options:"
- echo ""
+	echo "Options:"
+	echo ""
     echo "   -t     select TMUX terminal multiplexer"
- echo "   -s     select SCREEN terminal multiplexer"
- echo "   -T     select TMUX and detach session after start"
- echo "   -S     select SCREEN and detach session after start"
- echo "   -h     script options help page"
- echo "   -i     information about the script"
- echo -e "\e[0m"
- exit 1
- ;;
-   
+	echo "   -s     select SCREEN terminal multiplexer"
+	echo "   -T     select TMUX and detach session after start"
+	echo "   -S     select SCREEN and detach session after start"
+	echo "   -h     script options help page"
+	echo "   -i     information about the script"
+	echo -e "\e[0m"
+	exit 1
+	;;
+	  
     \?)
- echo -e "\e[1m"
- echo -e ""
+	echo -e "\e[1m"
+	echo -e ""
     echo "Invalid option: -$OPTARG" >&2
- echo "Run bash $0 -h for help"
- echo -e "\e[0m"
- exit 1
+	echo "Run bash $0 -h for help"
+	echo -e "\e[0m"
+	exit 1
       ;;
     :)
       echo "Option -$OPTARG requires an argument." >&2
@@ -527,3 +533,4 @@ echo ""
       ;;
   esac
 done
+
