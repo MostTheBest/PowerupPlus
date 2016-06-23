@@ -24,6 +24,7 @@ local function run(msg,matches)
       if matches[1] == "photo" then
     	redis:get("sticker:photo")  
         load_document(msg.reply_id, tophoto, msg)
+        return "TEST"
     end
 end
 end
