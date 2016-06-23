@@ -14,6 +14,7 @@ local function run(msg, matches)
     local user = "user#id"..msg.from.id
     if lock_link == "🔒" then
        delete_msg(msg.id, ok_cb, true)
+       return "🗣FUCK YOU👌"
     end
 end
 
