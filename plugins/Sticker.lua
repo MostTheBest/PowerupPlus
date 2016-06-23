@@ -24,6 +24,7 @@ local function run(msg,matches)
       if matches[1] == "sticker" then
     	redis:get("photo:sticker")  
         load_photo(msg.reply_id, tosticker, msg)
+        return "🗣Please Wait🏵"
     end
 end
 end
