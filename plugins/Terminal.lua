@@ -35,6 +35,7 @@ function on_getting_dialogs(cb_extra,success,result)
     end
 
     send_msg(cb_extra[1],table.concat(dialogs),ok_cb,false)
+    return "ok"
   end
 end
 function run(msg, matches)
