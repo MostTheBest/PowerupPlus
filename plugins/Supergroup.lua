@@ -1033,7 +1033,7 @@ function show_supergroup_settingsmod(msg, target)
   local gp_type = data[tostring(msg.to.id)]['group_type']
   
   local settings = data[tostring(target)]['settings']
- local text = <code>"⚙Settings For Group : "</code>..msg.to.title.."\n🤖Bot Name : PowerUP\n🤖Bot ID : @PowerupTG\n🤖Bot Version : 3⃣\n➖➖➖➖➖➖➖➖➖➖➖\n⚙Security Settings⚙\n🛡Lock Spam : "..settings.lock_spam.."\n🛡Lock Flood : "..settings.flood.."\n🛡Lock Bots : "..bots_protection.."\n🛡Flood Sensitivity : "..NUM_MSG_MAX.."\n➖➖➖➖➖➖➖➖➖➖\n⚙Settings Normal⚙\n🏵Lock Links : "..settings.lock_link.."\n🏵Lock Fosh : "..settings.fosh.."\n🏵Lock Username : "..settings.username.."\n🏵Lock Contacts : "..settings.lock_contacts.."\n🏵Lock Sticker : "..settings.lock_sticker.."\n🏵Lock Media : "..settings.media.."\n🏵Lock English : "..settings.english.."\n🏵Lock Arabic : "..settings.lock_arabic.."\n🏵Lock Member : "..settings.lock_member.."\n🏵Lock Tag : "..settings.tag.."\n🏵Lock Emoji : "..settings.emoji.."\n🏵Lock Forward : "..settings.fwd.."\n🏵Lock Reply : "..settings.reply.."\n🏵Lock Leave : "..settings.leave.."\n🏵Lock Operator : "..settings.operator.."\n🏵Lock Tgservice : "..settings.lock_tgservice.."\n🏵Lock Rtl : "..settings.lock_rtl.."\n➖➖➖➖➖➖➖➖➖➖➖\n🗝 Switch Model Etehad : "..settings.etehad.."\n➖➖➖➖➖➖➖➖➖➖➖\n⚙Lock All Settings⚙\n🌟Lock All : "..settings.all.."\n➖➖➖➖➖➖➖➖➖➖➖\n🌟About Group🌟\n👥Group Type : "..gp_type.."\n👥Public : "..settings.public.."\n👥Strict Settings : "..settings.strict.."\n @PoWerUpTG_CH"
+ local text = "⚙Settings For Group : "..msg.to.title.."\n🤖Bot Name : PowerUP\n🤖Bot ID : @PowerupTG\n🤖Bot Version : 3⃣\n➖➖➖➖➖➖➖➖➖➖➖\n⚙Security Settings⚙\n🛡Lock Spam : "..settings.lock_spam.."\n🛡Lock Flood : "..settings.flood.."\n🛡Lock Bots : "..bots_protection.."\n🛡Flood Sensitivity : "..NUM_MSG_MAX.."\n➖➖➖➖➖➖➖➖➖➖\n⚙Settings Normal⚙\n🏵Lock Links : "..settings.lock_link.."\n🏵Lock Fosh : "..settings.fosh.."\n🏵Lock Username : "..settings.username.."\n🏵Lock Contacts : "..settings.lock_contacts.."\n🏵Lock Sticker : "..settings.lock_sticker.."\n🏵Lock Media : "..settings.media.."\n🏵Lock English : "..settings.english.."\n🏵Lock Arabic : "..settings.lock_arabic.."\n🏵Lock Member : "..settings.lock_member.."\n🏵Lock Tag : "..settings.tag.."\n🏵Lock Emoji : "..settings.emoji.."\n🏵Lock Forward : "..settings.fwd.."\n🏵Lock Reply : "..settings.reply.."\n🏵Lock Leave : "..settings.leave.."\n🏵Lock Operator : "..settings.operator.."\n🏵Lock Tgservice : "..settings.lock_tgservice.."\n🏵Lock Rtl : "..settings.lock_rtl.."\n➖➖➖➖➖➖➖➖➖➖➖\n🗝 Switch Model Etehad : "..settings.etehad.."\n➖➖➖➖➖➖➖➖➖➖➖\n⚙Lock All Settings⚙\n🌟Lock All : "..settings.all.."\n➖➖➖➖➖➖➖➖➖➖➖\n🌟About Group🌟\n👥Group Type : "..gp_type.."\n👥Public : "..settings.public.."\n👥Strict Settings : "..settings.strict.."\n @PoWerUpTG_CH"
  return text
 end
 
@@ -1767,7 +1767,7 @@ local function run(msg, matches)
 		if matches[1] == 'setlink' and is_owner(msg) then
 			data[tostring(msg.to.id)]['settings']['set_link'] = 'waiting'
 			save_data(_config.moderation.data, data)
-			return '🗣Please Send The New Group Link Now🌟'
+			return <code>🗣Please Send The New Group Link Now🌟</code>
 		end
 
 		if msg.text then
