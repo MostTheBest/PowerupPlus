@@ -20,7 +20,7 @@ local text = matches[1]
   local file = download_to_file(url,'text.ogg')
       send_audio('channel#id'..msg.to.id, file, ok_cb , false)
       send_audio('chat#id'..msg.to.id, file, ok_cb , false)
-      return "<code>`YOUR VOICE`</code>"
+      return "`<code>YOUR VOICE</code>`"
 end
 end
   end
