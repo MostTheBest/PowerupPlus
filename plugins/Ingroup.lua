@@ -157,7 +157,7 @@ local function check_member_realmrem(cb_extra, success, result)
       end
       data[tostring(realms)][tostring(msg.to.id)] = nil
       save_data(_config.moderation.data, data)
-      return send_large_msg(receiver, 'Realm has been removed!')
+      return send_large_msg(receiver, '🏵قلمرو حذف شده است!👁')
     end
   end
 end
@@ -178,14 +178,14 @@ local function check_member_modrem(cb_extra, success, result)
       end
       data[tostring(groups)][tostring(msg.to.id)] = nil
       save_data(_config.moderation.data, data)
-      return send_large_msg(receiver, '🏵Group has been removed👁')
+      return send_large_msg(receiver, '😢گروه حذف شده است🏵')
     end
   end
 end
 --End Check Member
 function show_group_settingsmod(msg, target)
  	if not is_momod(msg) then
-    	return "For moderators only!"
+    	return "🌟فقط برای مدیران!🌟"
   	end
   	local data = load_data(_config.moderation.data)
     if data[tostring(target)] then
