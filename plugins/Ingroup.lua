@@ -122,7 +122,7 @@ local function check_member_modadd(cb_extra, success, result)
       end
       data[tostring(groups)][tostring(msg.to.id)] = msg.to.id
       save_data(_config.moderation.data, data)
-      return send_large_msg(receiver, '🗣Group is added and you have been promoted as the owner🌟 ')
+      return send_large_msg(receiver, '🏵گروه اضافه شده است و شما به عنوان صاحب ترویج شده است🌟')
     end
   end
 end
