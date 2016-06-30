@@ -369,12 +369,12 @@ local function lock_group_membermod(msg, data, target)
   end
   local group_member_lock = data[tostring(target)]['settings']['lock_member']
   if group_member_lock == 'yes' then
-    return 'Group members are already locked'
+    return '👤اعضای گروه در حال حاضر قفل شده است🔒'
   else
     data[tostring(target)]['settings']['lock_member'] = 'yes'
     save_data(_config.moderation.data, data)
   end
-  return 'Group members has been locked'
+  return '👤اعضای گروه قفل شده است🔒'
 end
 
 local function unlock_group_membermod(msg, data, target)
@@ -383,11 +383,11 @@ local function unlock_group_membermod(msg, data, target)
   end
   local group_member_lock = data[tostring(target)]['settings']['lock_member']
   if group_member_lock == 'no' then
-    return 'Group members are not locked'
+    return '👤اعضای گروه باز شده است🔓'
   else
     data[tostring(target)]['settings']['lock_member'] = 'no'
     save_data(_config.moderation.data, data)
-    return 'Group members has been unlocked'
+    return '👤اعضای گروه باز شده است🔓'
   end
 end
 
@@ -403,12 +403,12 @@ local function set_public_membermod(msg, data, target)
 	save_data(_config.moderation.data, data)
   end
   if group_member_lock == 'yes' then
-    return 'Group is already public'
+    return '👥گروه در حال حاضر عمومی👁'
   else
     data[tostring(target)]['settings']['public'] = 'yes'
     save_data(_config.moderation.data, data)
   end
-  return 'Group is now: public'
+  return '👥گروه در حال حاضر: عمومی👁'
 end
 
 local function unset_public_membermod(msg, data, target)
@@ -422,11 +422,11 @@ local function unset_public_membermod(msg, data, target)
 	save_data(_config.moderation.data, data)
   end
   if group_member_lock == 'no' then
-    return 'Group is not public'
+    return '👥گروه عمومی نیست🛡'
   else
     data[tostring(target)]['settings']['public'] = 'no'
     save_data(_config.moderation.data, data)
-    return 'Group is now: not public'
+    return '👥گروه در حال حاضر: عمومی نیست🛡'
   end
 end
 
