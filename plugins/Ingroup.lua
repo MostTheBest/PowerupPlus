@@ -614,12 +614,12 @@ end
 
 local function set_rulesmod(msg, data, target)
   if not is_momod(msg) then
-    return "For moderators only!"
+    return "🌟فقط برای مدیران!🌟"
   end
   local data_cat = 'rules'
   data[tostring(target)][data_cat] = rules
   save_data(_config.moderation.data, data)
-  return 'Set group rules to:\n\n'..rules
+  return '✍🏻مجموعه قوانین گروه به:\n\n'..rules
 end
 local function modadd(msg)
   -- superuser and admins only (because sudo are always has privilege)
@@ -627,11 +627,11 @@ local function modadd(msg)
 	return
   end
   if not is_admin1(msg) then
-    return "You're not admin"
+    return "🌟شما مدیر نیستید🌟"
   end
   local data = load_data(_config.moderation.data)
   if is_group(msg) then
-    return '🗣Group is already added.'
+    return '👥گروه در حال حاضر اضافه شده است.👁'
   end
     receiver = get_receiver(msg)
     chat_info(receiver, check_member_modadd,{receiver=receiver, data=data, msg = msg})
@@ -642,11 +642,11 @@ local function realmadd(msg)
 	return
   end
   if not is_admin1(msg) then
-    return "You're not admin"
+    return "🌟شما مدیر نیستید🌟"
   end
   local data = load_data(_config.moderation.data)
   if is_realm(msg) then
-    return 'Realm is already added.'
+    return '🛡قلمرو در حال حاضر اضافه شده است.👁'
   end
     receiver = get_receiver(msg)
     chat_info(receiver, check_member_realm_add,{receiver=receiver, data=data, msg = msg})
@@ -655,11 +655,11 @@ end
 function modrem(msg)
   -- superuser and admins only (because sudo are always has privilege)
   if not is_admin1(msg) then
-    return "You're not admin"
+    return 🌟شما مدیر نیستید🌟"
   end
   local data = load_data(_config.moderation.data)
   if not is_group(msg) then
-    return 'Group is not added.'
+    return '👥گروه اضافه نشده است.👁'
   end
     receiver = get_receiver(msg)
     chat_info(receiver, check_member_modrem,{receiver=receiver, data=data, msg = msg})
@@ -668,11 +668,11 @@ end
 function realmrem(msg)
   -- superuser and admins only (because sudo are always has privilege)
   if not is_admin1(msg) then
-    return "You're not admin"
+    return "🌟شما مدیر نیستید🌟"
   end
   local data = load_data(_config.moderation.data)
   if not is_realm(msg) then
-    return 'Realm is not added.'
+    return '🛡قلمرو اضافه نشده است.👁'
   end
     receiver = get_receiver(msg)
     chat_info(receiver, check_member_realmrem,{receiver=receiver, data=data, msg = msg})
@@ -680,7 +680,7 @@ end
 local function get_rules(msg, data)
   local data_cat = 'rules'
   if not data[tostring(msg.to.id)][data_cat] then
-    return 'No rules available.'
+    return '👥در این گروه قانونی ثبت نشده است✍🏻'
   end
   local rules = data[tostring(msg.to.id)][data_cat]
   local rules = 'Chat rules:\n\n'..rules
@@ -714,11 +714,11 @@ local function promote(receiver, member_username, member_id)
     return send_large_msg(receiver, 'Group is not added.')
   end
   if data[group]['moderators'][tostring(member_id)] then
-    return send_large_msg(receiver, member_username..' is already a moderator.')
+    return send_large_msg(receiver, member_username..' در حال حاضر یک مدیر.👁')
   end
   data[group]['moderators'][tostring(member_id)] = member_username
   save_data(_config.moderation.data, data)
-  return send_large_msg(receiver, member_username..' has been promoted.')
+  return send_large_msg(receiver, member_username..' ترفیع گرفت.👁')
 end
 
 local function promote_by_reply(extra, success, result)
@@ -742,11 +742,11 @@ local function demote(receiver, member_username, member_id)
     return send_large_msg(receiver, 'Group is not added.')
   end
   if not data[group]['moderators'][tostring(member_id)] then
-    return send_large_msg(receiver, member_username..' is not a moderator.')
+    return send_large_msg(receiver, member_username..' در حال حاضر یک مدیر.👁')
   end
   data[group]['moderators'][tostring(member_id)] = nil
   save_data(_config.moderation.data, data)
-  return send_large_msg(receiver, member_username..' has been demoted.')
+  return send_large_msg(receiver, member_username..' ترفیع گرفت.👁')
 end
 
 local function demote_by_reply(extra, success, result)
@@ -771,7 +771,7 @@ local function setowner_by_reply(extra, success, result)
   data[tostring(msg.to.id)]['set_owner'] = tostring(msg.from.id)
       save_data(_config.moderation.data, data)
       savelog(msg.to.id, name_log.." ["..msg.from.id.."] set ["..msg.from.id.."] as owner")
-      local text = msg.from.print_name:gsub("_", " ").." is the owner now"
+      local text = msg.from.print_name:gsub("_", " ").." صاحب اکنون👁"
       return send_large_msg(receiver, text)
 end
 
@@ -816,14 +816,14 @@ local function modlist(msg)
   local data = load_data(_config.moderation.data)
   local groups = "groups"
   if not data[tostring(groups)][tostring(msg.to.id)] then
-    return 'Group is not added.'
+    return '👥گروه اضافه نشده است.👁'
   end
   -- determine if table is empty
   if next(data[tostring(msg.to.id)]['moderators']) == nil then --fix way
-    return 'No moderator in this group.'
+    return '👥در این گروه مدیری وجود ندارد🌟'
   end
   local i = 1
-  local message = '\nList of moderators for ' .. string.gsub(msg.to.print_name, '_', ' ') .. ':\n'
+  local message = '\n👥فهرست مدیران برای گروه🌟 ' .. string.gsub(msg.to.print_name, '_', ' ') .. ':\n'
   for k,v in pairs(data[tostring(msg.to.id)]['moderators']) do
     message = message ..i..' - '..v..' [' ..k.. '] \n'
     i = i + 1
