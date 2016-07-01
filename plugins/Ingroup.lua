@@ -655,7 +655,7 @@ end
 function modrem(msg)
   -- superuser and admins only (because sudo are always has privilege)
   if not is_admin1(msg) then
-    return 🌟شما مدیر نیستید🌟"
+    return "🌟شما مدیر نیستید🌟"
   end
   local data = load_data(_config.moderation.data)
   if not is_group(msg) then
