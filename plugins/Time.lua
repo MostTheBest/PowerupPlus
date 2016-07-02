@@ -1,4 +1,5 @@
 local function run(msg, matches)
+send_document(get_receiver(msg),'file/time.webp',ok_cb,false)
 local url , res = http.request('http://api.gpmod.ir/time/')
 local jdat = json:decode(url)
 local url = "http://latex.codecogs.com/png.download?".."\\dpi{500}%10\\LARGE%75"..jdat.ENtime
